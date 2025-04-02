@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "outDir": "./dist/types",
+    "rootDir": "./src",
+    "target": "ES2022",
+    "module": "NodeNext",
+    "declaration": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "emitDeclarationOnly": true,
+    "moduleResolution": "NodeNext",
+    "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "#commands/*": ["./src/commands/*"],
+      "#factories/*": ["./src/factories/*"],
+      "#libs/*": ["./src/libs/*"],
+      "#common/*": ["./src/common/*"],
+      "#creators/*": ["./src/creators/*"],
+      "#templates/*": ["./src/templates/*"],
+      "#errors": ["./src/errors/index.ts"],
+      "#interfaces/*": ["./src/interfaces/*"]
+    }
+  }
+}

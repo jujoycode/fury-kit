@@ -1,0 +1,140 @@
+import {
+  group,
+  intro,
+  outro,
+  isCancel,
+  cancel,
+  note,
+  text,
+  select,
+  multiselect,
+  confirm,
+  spinner,
+  log as clackLog,
+  type TextOptions,
+  type SelectOptions,
+  type ConfirmOptions,
+  type MultiSelectOptions,
+  type PromptGroup,
+} from "@clack/prompts"
+import pc from "picocolors"
+import { OperationCancelledError } from "#errors"
+
+export class Prompts {
+  /**
+   * handleCancellation
+   * @desc 취소 처리
+   */
+  private static handleCancellation() {
+    cancel()
+
+    const error = new OperationCancelledError()
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(error, this.handleCancellation)
+    }
+
+    throw error
+  }
+
+  /**
+   * log
+   * @desc clackLog 인스턴스
+   */
+  public static log = clackLog
+
+  /**
+   * start
+   * @desc 프로그램 시작 시 표시되는 인트로 메시지
+   */
+  public static start() {
+    intro(`${pc.bgCyanBright(" Fury CLI ")}`)
+  }
+
+  /**
+   * end
+   * @desc 프로그램 종료 시 표시되는 아웃로 메시지
+   */
+  public static end(comment?: string) {
+    outro(comment)
+  }
+
+  /**
+   * tip
+   * @desc 프로그램 실행 시 표시되는 팁 메시지
+   */
+  public static tip(message: string, title?: string) {
+    note(message, title)
+  }
+
+  /**
+   * ask
+   * @desc 프롬프트 질문
+   */
+  public static async ask(options: TextOptions): Promise<string> {
+    const value = await text(options)
+
+    if (isCancel(value)) {
+      this.handleCancellation()
+    }
+
+    return value as string
+  }
+
+  /**
+   * choice
+   * @desc 프롬프트 선택
+   */
+  public static async choice(options: SelectOptions<string>): Promise<string> {
+    const value = await select(options)
+
+    if (isCancel(value)) {
+      this.handleCancellation()
+    }
+
+    return value as string
+  }
+
+  /**
+   * multiChoice
+   * @desc 프롬프트 다중 선택
+   */
+  public static async multiChoice(options: MultiSelectOptions<string>): Promise<string[]> {
+    const value = await multiselect(options)
+
+    if (isCancel(value)) {
+      this.handleCancellation()
+    }
+
+    return value as string[]
+  }
+
+  /**
+   * accept
+   * @desc 프롬프트 확인
+   */
+  public static async accept(options: ConfirmOptions): Promise<boolean> {
+    const value = await confirm(options)
+
+    if (isCancel(value)) {
+      this.handleCancellation()
+    }
+
+    return value as boolean
+  }
+
+  /**
+   * group
+   * @desc 프롬프트 그룹
+   */
+  public static group<T>(options: PromptGroup<T>) {
+    return group(options)
+  }
+
+  /**
+   * spinner
+   * @desc 프롬프트 스피너
+   */
+  public static spinner() {
+    return spinner()
+  }
+}

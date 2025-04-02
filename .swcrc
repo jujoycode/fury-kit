@@ -1,0 +1,39 @@
+{
+  "$schema": "https://swc.rs/schema.json",
+  "jsc": {
+    "baseUrl": "./",
+    "paths": {
+      "#commands/*": ["src/commands/*"],
+      "#factories/*": ["src/factories/*"],
+      "#libs/*": ["src/libs/*"],
+      "#common/*": ["src/common/*"],
+      "#creators/*": ["src/creators/*"],
+      "#templates/*": ["src/templates/*"],
+      "#errors": ["src/errors/index.ts"],
+      "#interfaces/*": ["src/interfaces/*"]
+    },
+    "parser": {
+      "syntax": "typescript",
+      "tsx": false,
+      "decorators": false,
+      "dynamicImport": true,
+      "resolveJsonModule": true
+    },
+    "minify": {
+      "compress": {
+        "unused": true
+      },
+      "mangle": true
+    },
+    "target": "es2022",
+    "loose": false,
+    "keepClassNames": true,
+    "externalHelpers": false
+  },
+  "module": {
+    "type": "es6"
+  },
+  "minify": true,
+  "isModule": true,
+  "exclude": ["node_modules/**"]
+}

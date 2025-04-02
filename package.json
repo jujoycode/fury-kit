@@ -1,0 +1,52 @@
+{
+  "name": "fury-tool",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "dist/src/index.js",
+  "bin": {
+    "fury": "dist/src/index.js"
+  },
+  "imports": {
+    "#templates/*": "./src/templates/*",
+    "#commands/*": "./src/commands/*",
+    "#factories/*": "./src/factories/*",
+    "#libs/*": "./src/libs/*",
+    "#common/*": "./src/common/*",
+    "#creators/*": "./src/creators/*",
+    "#errors": "./src/errors/index.js",
+    "#interfaces/*": "./src/interfaces/*"
+  },
+  "scripts": {
+    "dev:swc": "node --loader @swc-node/register/esm src/index.ts",
+    "build:swc": "rm -rf dist && swc src -d dist",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build": "pnpm build:swc && pnpm build:types"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@swc/cli": "^0.6.0",
+    "@swc/core": "^1.11.13",
+    "@swc-node/register": "^1.10.10",
+    "@types/cli-progress": "^3.11.6",
+    "@types/node": "^22.13.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.10.0",
+    "axios": "^1.8.3",
+    "cli-progress": "^3.12.0",
+    "commander": "^13.1.0",
+    "date-fns": "^4.1.0",
+    "es-toolkit": "^1.33.0",
+    "execa": "^9.5.2",
+    "ora": "^8.1.2",
+    "picocolors": "^1.1.1"
+  }
+}
