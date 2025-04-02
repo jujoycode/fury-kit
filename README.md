@@ -1,4 +1,4 @@
-<img width="100px" height="60px" align="right" alt="Fury Logo" src="https://github.com/jujoycode/fury-tool/blob/master/assets/fury_logo2.jpeg?raw=true" title="fury" />
+<img width="100px" height="60px" align="right" alt="Fury Logo" src="https://github.com/jujoycode/fury-tool/blob/main/assets/fury_logo2.jpeg?raw=true" title="fury" />
 
 # Fury
 
