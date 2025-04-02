@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 
+import pc from "picocolors"
 import { Command } from "commander"
-import { CommandFactory } from "#factories/CommandFactory.js"
+import { Prompts } from '#libs/prompts.js'
 import { isNodeInstalled } from "#common/systemUtil.js"
+import { CommandFactory } from "#factories/CommandFactory.js"
 import { BaseError, NodeNotInstalledError } from "#errors"
 
 async function main() {
@@ -20,11 +22,11 @@ async function main() {
     const command = new CommandFactory(program.opts()).getCommand()
     await command.safeExecute()
   } catch (error) {
-    if (error instanceof BaseError) {
-      console.error({ code: error.code, message: error.message, cause: error.cause })
-    } else console.error('Unknown error', error)
+    const errorMessage = error instanceof BaseError
+      ? `\n${pc.bgRed(pc.white(' FAILED WITH '))} [${pc.red(`${error.code}`)}] ${pc.bold(error.message)}\n`
+      : `\n${pc.bgRed(pc.white(' UNEXPECTED ERROR '))} ${error}\n`
 
-    process.exit(1)
+    Prompts.log.error(errorMessage)
   }
 }
 

@@ -1,4 +1,3 @@
-
 import { Prompts } from "#libs/prompts.js"
 import type { Command } from "#interfaces/commands.interface.js"
 
@@ -17,7 +16,7 @@ export abstract class BaseCommand implements Command {
    * undo
    * @desc 커맨드 실행 취소
    */
-  abstract undo(): void | Promise<void>;
+  abstract undo(): boolean | Promise<boolean>;
 
   /**
    * safeExecute
@@ -27,7 +26,24 @@ export abstract class BaseCommand implements Command {
     try {
       await this.execute()
     } catch (error) {
-      await this.undo()
+      this.prompts.log.warn('⚠️  An error occurred while executing the command')
+      this.prompts.log.info('🔄 Starting rollback process...')
+
+      try {
+        const isSuccess = await this.undo()
+
+        if (isSuccess) {
+          this.prompts.log.success('✅ Rollback completed successfully')
+        } else {
+          this.prompts.log.error('❌ Rollback process failed')
+        }
+      } catch (rollbackError) {
+        this.prompts.log.error('❌ New error occurred during rollback')
+        if (rollbackError instanceof Error) {
+          this.prompts.log.error(`Rollback error: ${rollbackError.message}`)
+        }
+      }
+
       throw error
     }
   }

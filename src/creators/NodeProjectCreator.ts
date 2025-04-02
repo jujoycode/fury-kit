@@ -1,7 +1,8 @@
-import { BaseProjectCreatorFactory } from "#factories/BaseProjectCreatorFactory.js"
-import { createDirectory, createFile, combinePath } from "#common/fsUtil.js"
+import pc from "picocolors"
 import { NpmUtil } from "#common/npmUtil.js"
-import { BaseError, CommandExecutionFailedError } from "#errors"
+import { BaseProjectCreatorFactory } from "#factories/BaseProjectCreatorFactory.js"
+import { createDirectory, createFile, combinePath, checkExists } from "#common/fsUtil.js"
+import { BaseError, CommandExecutionFailedError, ResourceConflictError } from "#errors"
 import type { ProjectOption, PackageJson } from "#interfaces/project.interface.js"
 
 import swcConfig from '#templates/swc-config.json' with { type: 'json' }
@@ -27,6 +28,11 @@ export class NodeProjectCreator extends BaseProjectCreatorFactory {
     const spinner = this.prompts.spinner()
 
     spinner.start("Preparing Node.js project")
+
+    if (checkExists(projectName)) {
+      spinner.stop('--------------------------------------', 1)
+      throw new ResourceConflictError(`directory(${pc.yellow(projectName)})`)
+    }
 
     try {
       createDirectory(projectName)

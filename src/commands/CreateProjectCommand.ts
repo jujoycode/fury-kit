@@ -1,7 +1,8 @@
+import pc from "picocolors"
+import { isEmpty } from "es-toolkit/compat"
+import { deleteDirectory, checkExists } from "#common/fsUtil.js"
 import { BaseCommand } from "#commands/BaseCommand.js"
 import { ProjectCreatorFactory } from "#factories/ProjectCreatorFactory.js"
-import { isEmpty } from "es-toolkit/compat"
-import pc from "picocolors"
 import type { ProjectOption, PackageManager, Framework, Language } from "#interfaces/project.interface.js"
 
 export class CreateProjectCommand extends BaseCommand {
@@ -23,8 +24,17 @@ export class CreateProjectCommand extends BaseCommand {
     await projectCreator.createProject()
   }
 
-  public undo() {
-    // 1. 
+  public async undo() {
+    // * 이번 실행에서 디렉토리를 생성했는지 검증 후 삭제
+    if (!isEmpty(this.projectOption)) {
+      try {
+        await deleteDirectory(this.projectOption.projectName)
+      } catch (error) {
+        return false
+      }
+    }
+
+    return true
   }
 
   /**
@@ -104,7 +114,7 @@ export class CreateProjectCommand extends BaseCommand {
               value: "typescript",
             },
             {
-              label: pc.blue("TypeScript + SWC"),
+              label: pc.blue("TypeScript+SWC"),
               value: "typescript-swc",
               hint: 'recommended',
             },

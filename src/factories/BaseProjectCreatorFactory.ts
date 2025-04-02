@@ -22,8 +22,7 @@ export abstract class BaseProjectCreatorFactory {
     await this.prepareProject()
     await this.createProjectStructure()
     await this.configureProject()
-
-    this.finalizeProject()
+    await this.finalizeProject()
   }
 
   /**

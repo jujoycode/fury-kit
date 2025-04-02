@@ -36,6 +36,8 @@ export class Prompts {
     throw error
   }
 
+  public static cancel = cancel
+
   /**
    * log
    * @desc clackLog 인스턴스
