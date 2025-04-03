@@ -1,5 +1,5 @@
 import { execa } from "execa"
-import { BaseError, CommandExecutionFailedError } from "#errors"
+import { BaseError, CommandExecutionFailedError } from "#errors/index.js"
 import type { CommandParams, ExecutionResult } from "#interfaces/libs.interface.js"
 
 export class Executor {

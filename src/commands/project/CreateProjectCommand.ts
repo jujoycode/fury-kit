@@ -1,10 +1,10 @@
 import pc from "picocolors"
 import { isEmpty } from "es-toolkit/compat"
-import { deleteDirectory, checkExists } from "#common/fsUtil.js"
+import { deleteDirectory } from "#common/fsUtil.js"
 import { BaseCommand } from "#commands/BaseCommand.js"
 import { ProjectCreatorFactory } from "#factories/ProjectCreatorFactory.js"
+import { ResourceConflictError, type BaseError } from "#errors/index.js"
 import type { ProjectOption, PackageManager, Framework, Language } from "#interfaces/project.interface.js"
-
 export class CreateProjectCommand extends BaseCommand {
   private projectOption = {} as ProjectOption
 
@@ -26,12 +26,18 @@ export class CreateProjectCommand extends BaseCommand {
 
   public async undo() {
     // * 이번 실행에서 디렉토리를 생성했는지 검증 후 삭제
-    if (!isEmpty(this.projectOption)) {
-      try {
-        await deleteDirectory(this.projectOption.projectName)
-      } catch (error) {
-        return false
-      }
+    try {
+      await deleteDirectory(this.projectOption.projectName)
+    } catch (error) {
+      return false
+    }
+
+    return true
+  }
+
+  public isRollbackable(error?: Error | BaseError) {
+    if (error instanceof ResourceConflictError) {
+      return false
     }
 
     return true
@@ -114,7 +120,7 @@ export class CreateProjectCommand extends BaseCommand {
               value: "typescript",
             },
             {
-              label: pc.blue("TypeScript+SWC"),
+              label: pc.blue("TypeScript + SWC"),
               value: "typescript-swc",
               hint: 'recommended',
             },

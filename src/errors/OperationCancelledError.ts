@@ -1,4 +1,4 @@
-import { BaseError } from "#errors";
+import { BaseError } from "#errors/BaseError.js"
 
 /**
  * OperationCancelledError

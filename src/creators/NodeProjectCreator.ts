@@ -1,8 +1,8 @@
 import pc from "picocolors"
 import { NpmUtil } from "#common/npmUtil.js"
-import { BaseProjectCreatorFactory } from "#factories/BaseProjectCreatorFactory.js"
 import { createDirectory, createFile, combinePath, checkExists } from "#common/fsUtil.js"
-import { BaseError, CommandExecutionFailedError, ResourceConflictError } from "#errors"
+import { BaseProjectCreatorFactory } from "#factories/project/BaseProjectCreatorFactory.js"
+import { BaseError, CommandExecutionFailedError, ResourceConflictError } from "#errors/index.js"
 import type { ProjectOption, PackageJson } from "#interfaces/project.interface.js"
 
 import swcConfig from '#templates/swc-config.json' with { type: 'json' }
@@ -30,7 +30,7 @@ export class NodeProjectCreator extends BaseProjectCreatorFactory {
     spinner.start("Preparing Node.js project")
 
     if (checkExists(projectName)) {
-      spinner.stop('--------------------------------------', 1)
+      spinner.stop()
       throw new ResourceConflictError(`directory(${pc.yellow(projectName)})`)
     }
 
@@ -111,12 +111,18 @@ export class NodeProjectCreator extends BaseProjectCreatorFactory {
     const { projectName, language, additionalDependencies, additionalDevDependencies } = this.projectOption
 
     if (language.includes("typescript")) {
-      additionalDevDependencies.push("typescript", "@types/node")
+      additionalDevDependencies.push("typescript", 'ts-node', "@types/node")
     }
 
     if (language.includes("swc")) {
       additionalDevDependencies.push("@swc/core", "@swc/cli")
     }
+
+    const scripts: Record<string, string> = language.includes("typescript")
+      ? language.includes("swc")
+        ? { build: "tsc", dev: "node --loader ts-node/esm src/index.ts" }
+        : { build: "tsc", dev: "ts-node src/index.ts" }
+      : { dev: "node src/index.js" }
 
     return {
       name: projectName,
@@ -124,7 +130,7 @@ export class NodeProjectCreator extends BaseProjectCreatorFactory {
       description: "A Node.js project",
       type: "module",
       exports: './dist/index.js',
-      scripts: language.includes("typescript") ? { build: "tsc", dev: "ts-node src/index.ts" } : { dev: "node src/index.js" },
+      scripts,
       keywords: [],
       engines: { node: ">=20.0.0" },
       author: "",

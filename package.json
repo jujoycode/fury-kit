@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
-  "main": "dist/src/index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "bin": {
-    "fury": "dist/src/index.js"
+    "fury": "dist/index.mjs"
   },
   "imports": {
     "#templates/*": "./src/templates/*",
@@ -14,39 +15,47 @@
     "#libs/*": "./src/libs/*",
     "#common/*": "./src/common/*",
     "#creators/*": "./src/creators/*",
-    "#errors": "./src/errors/index.js",
+    "#errors/*": "./src/errors/*",
     "#interfaces/*": "./src/interfaces/*"
   },
   "scripts": {
-    "dev:swc": "node --loader @swc-node/register/esm src/index.ts",
-    "build:swc": "rm -rf dist && swc src -d dist",
-    "build:types": "tsc --emitDeclarationOnly",
-    "build": "pnpm build:swc && pnpm build:types"
+    "dev": "pnpm run build:prod && node dist/index.mjs",
+    "clean": "rm -rf dist",
+    "build:types": "tsc --emitDeclarationOnly --outDir dist",
+    "build:dev": "pnpm run clean && rollup -c && pnpm run build:types",
+    "build:prod": "pnpm run clean && rollup -c",
+    "start": "node dist/index.mjs"
   },
+  "test": "pnpm run build:prod && node dist/index.mjs",
   "engines": {
-    "node": ">=20"
+    "node": ">=18"
   },
   "keywords": [],
   "author": "",
   "license": "GPL-3.0-only",
   "devDependencies": {
-    "@swc/cli": "^0.6.0",
-    "@swc/core": "^1.11.13",
-    "@swc-node/register": "^1.10.10",
-    "@types/cli-progress": "^3.11.6",
+    "@rollup/plugin-commonjs": "^28.0.3",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-swc": "^0.4.0",
     "@types/node": "^22.13.9",
-    "ts-node": "^10.9.2",
+    "javascript-obfuscator": "^4.1.1",
+    "rollup": "^4.9.6",
+    "rollup-plugin-obfuscator": "^1.1.0",
+    "rollup-plugin-visualizer": "^5.14.0",
     "typescript": "^5.8.2"
+  },
+  "peerDependencies": {
+    "@swc/core": "^1.2.0",
+    "ora": "^8.0.0"
   },
   "dependencies": {
     "@clack/prompts": "^0.10.0",
     "axios": "^1.8.3",
     "cli-progress": "^3.12.0",
     "commander": "^13.1.0",
-    "date-fns": "^4.1.0",
     "es-toolkit": "^1.33.0",
     "execa": "^9.5.2",
-    "ora": "^8.1.2",
     "picocolors": "^1.1.1"
   }
 }

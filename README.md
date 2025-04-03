@@ -37,6 +37,14 @@ $ fury -h
 $ fury -v # or fury --version
 ```
 
+## Update Notification
+
+```bash
+│                Update available! 9.12.3 → 10.7.1.                │
+│   Changelog: https://github.com/jujoycode/fury-tool/README.md    │
+│                Run "pnpm i -g fury-tool" to update.              │
+```
+
 ## Project Structure
 
 ```

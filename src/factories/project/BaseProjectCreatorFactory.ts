@@ -73,7 +73,7 @@ export abstract class BaseProjectCreatorFactory {
       if (this.projectOption.installDependencies) {
         // 패키지 설치
         const { command, args } = this.getBaseInstallCommand()
-        const commandResult = await this.executor.executeCommand({ command, args })
+        const commandResult = await this.executor.executeCommand({ command, args, options: { cwd: this.projectOption.projectName } })
 
         if (!commandResult.success) {
           this.prompts.log.error('Failed to install dependencies')

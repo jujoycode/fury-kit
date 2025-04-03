@@ -1,6 +1,6 @@
 import { isEmpty } from "es-toolkit/compat"
-import { InvalidCommandError } from "#errors"
-import { CreateProjectCommand } from "#commands/CreateProjectCommand.js"
+import { InvalidCommandError } from "#errors/index.js"
+import { CreateProjectCommand } from "#commands/project/CreateProjectCommand.js"
 import type { Command, CommandType } from "#interfaces/commands.interface.js"
 
 // * Command 생성을 해주는 Factory, 인자로 받은 값을 통해 커맨드 생성 및 Client 역할을 해주는 클래스

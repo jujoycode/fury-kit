@@ -18,7 +18,7 @@ import {
   type PromptGroup,
 } from "@clack/prompts"
 import pc from "picocolors"
-import { OperationCancelledError } from "#errors"
+import { OperationCancelledError } from "#errors/index.js"
 
 export class Prompts {
   /**
