@@ -2,9 +2,10 @@ import pc from "picocolors"
 import { isEmpty } from "es-toolkit/compat"
 import { deleteDirectory } from "#common/fsUtil.js"
 import { BaseCommand } from "#commands/BaseCommand.js"
-import { ProjectCreatorFactory } from "#factories/ProjectCreatorFactory.js"
+import { ProjectCreatorFactory } from "#factories/project/ProjectCreatorFactory.js"
 import { ResourceConflictError, type BaseError } from "#errors/index.js"
 import type { ProjectOption, PackageManager, Framework, Language } from "#interfaces/project.interface.js"
+
 export class CreateProjectCommand extends BaseCommand {
   private projectOption = {} as ProjectOption
 
@@ -65,7 +66,7 @@ export class CreateProjectCommand extends BaseCommand {
 
       // 2. Package Manager
       packageManager: () =>
-        this.prompts.choice({
+        this.prompts.choice<PackageManager>({
           message: "What is the package manager of your project?",
           initialValue: 'pnpm',
           options: [
@@ -83,11 +84,11 @@ export class CreateProjectCommand extends BaseCommand {
               hint: 'recommended',
             },
           ],
-        }) as Promise<PackageManager>,
+        }),
 
       // 3. Framework
       framework: () =>
-        this.prompts.choice({
+        this.prompts.choice<Framework>({
           message: "What is the framework of your project?",
           options: [
             {
@@ -103,11 +104,11 @@ export class CreateProjectCommand extends BaseCommand {
             //   value: "vue",
             // },
           ],
-        }) as Promise<Framework>,
+        }),
 
       // 4. 대상 언어
       language: () =>
-        this.prompts.choice({
+        this.prompts.choice<Language>({
           message: "What is your preferred language?",
           initialValue: 'typescript-swc',
           options: [
@@ -125,11 +126,11 @@ export class CreateProjectCommand extends BaseCommand {
               hint: 'recommended',
             },
           ],
-        }) as Promise<Language>,
+        }),
 
       // 5. 옵션 기능
       projectOptions: () =>
-        this.prompts.multiChoice({
+        this.prompts.multiChoice<string>({
           message: "Do you have any options for the project?",
           required: false,
           options: [
@@ -142,7 +143,7 @@ export class CreateProjectCommand extends BaseCommand {
               value: "prettier",
             },
           ],
-        }) as Promise<string[]>,
+        }),
 
       // 6.1 추가 의존성 기입
       additionalDependencies: () =>

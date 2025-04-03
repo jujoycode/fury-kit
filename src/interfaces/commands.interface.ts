@@ -8,3 +8,5 @@ export interface CommandType {
   createProject?: boolean
   git?: boolean
 }
+
+export type GitCommandType = 'init' | 'push' | 'pull' | 'diff'

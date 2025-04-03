@@ -86,28 +86,28 @@ export class Prompts {
    * choice
    * @desc 프롬프트 선택
    */
-  public static async choice(options: SelectOptions<string>): Promise<string> {
+  public static async choice<T>(options: SelectOptions<T>): Promise<T> {
     const value = await select(options)
 
     if (isCancel(value)) {
       this.handleCancellation()
     }
 
-    return value as string
+    return value as T
   }
 
   /**
    * multiChoice
    * @desc 프롬프트 다중 선택
    */
-  public static async multiChoice(options: MultiSelectOptions<string>): Promise<string[]> {
+  public static async multiChoice<T>(options: MultiSelectOptions<T>): Promise<T[]> {
     const value = await multiselect(options)
 
     if (isCancel(value)) {
       this.handleCancellation()
     }
 
-    return value as string[]
+    return value as T[]
   }
 
   /**

@@ -1,6 +1,6 @@
 export type PackageManager = 'npm' | 'yarn' | 'pnpm'
 export type Framework = 'nodejs'
-export type Language = 'javascript' | 'typescript'
+export type Language = 'javascript' | 'typescript' | 'typescript-swc'
 
 export interface ProjectOption {
   projectName: string
