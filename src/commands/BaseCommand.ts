@@ -1,28 +1,28 @@
-import { Prompts } from "#libs/prompts.js"
-import type { BaseError } from "#errors/index.js"
-import type { Command } from "#interfaces/commands.interface.js"
+import { Prompts } from '#libs/prompts.js'
+import type { BaseError } from '#errors/index.js'
+import type { Command } from '#interfaces/commands.interface.js'
 export abstract class BaseCommand implements Command {
   protected prompts = Prompts
 
-  constructor() { }
+  constructor() {}
 
   /**
    * execute
    * @desc 커맨드 실행
    */
-  abstract execute(): void | Promise<void>;
+  abstract execute(): void | Promise<void>
 
   /**
    * undo
    * @desc 커맨드 실행 취소
    */
-  abstract undo(): boolean | Promise<boolean>;
+  abstract undo(): boolean | Promise<boolean>
 
   /**
    * isRollbackable
    * @desc 롤백 가능 여부
    */
-  abstract isRollbackable(error?: Error | BaseError): boolean;
+  abstract isRollbackable(error?: Error | BaseError): boolean
 
   /**
    * safeExecute

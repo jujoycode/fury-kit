@@ -1,10 +1,10 @@
-import pc from "picocolors"
-import { isEmpty } from "es-toolkit/compat"
-import { deleteDirectory } from "#common/fsUtil.js"
-import { BaseCommand } from "#commands/BaseCommand.js"
-import { ProjectCreatorFactory } from "#factories/project/ProjectCreatorFactory.js"
-import { ResourceConflictError, type BaseError } from "#errors/index.js"
-import type { ProjectOption, PackageManager, Framework, Language } from "#interfaces/project.interface.js"
+import pc from 'picocolors'
+import { isEmpty } from 'es-toolkit/compat'
+import { deleteDirectory } from '#common/fsUtil.js'
+import { BaseCommand } from '#commands/BaseCommand.js'
+import { ProjectCreatorFactory } from '#factories/project/ProjectCreatorFactory.js'
+import { ResourceConflictError, type BaseError } from '#errors/index.js'
+import type { ProjectOption, PackageManager, Framework, Language } from '#interfaces/project.interface.js'
 
 export class CreateProjectCommand extends BaseCommand {
   private projectOption = {} as ProjectOption
@@ -53,34 +53,34 @@ export class CreateProjectCommand extends BaseCommand {
       // 1. 프로젝트명
       projectName: () =>
         this.prompts.ask({
-          message: "What is the name of your project?",
-          initialValue: "toy-project",
+          message: 'What is the name of your project?',
+          initialValue: 'toy-project',
           validate: (value) => {
             if (value.length === 0) {
-              return "Project name is required"
+              return 'Project name is required'
             }
 
-            return ""
+            return ''
           },
         }),
 
       // 2. Package Manager
       packageManager: () =>
         this.prompts.choice<PackageManager>({
-          message: "What is the package manager of your project?",
+          message: 'What is the package manager of your project?',
           initialValue: 'pnpm',
           options: [
             {
-              label: pc.redBright("npm"),
-              value: "npm",
+              label: pc.redBright('npm'),
+              value: 'npm',
             },
             {
-              label: pc.blueBright("yarn"),
-              value: "yarn",
+              label: pc.blueBright('yarn'),
+              value: 'yarn',
             },
             {
-              label: pc.yellowBright("pnpm"),
-              value: "pnpm",
+              label: pc.yellowBright('pnpm'),
+              value: 'pnpm',
               hint: 'recommended',
             },
           ],
@@ -89,11 +89,11 @@ export class CreateProjectCommand extends BaseCommand {
       // 3. Framework
       framework: () =>
         this.prompts.choice<Framework>({
-          message: "What is the framework of your project?",
+          message: 'What is the framework of your project?',
           options: [
             {
-              label: pc.greenBright("Node"),
-              value: "nodejs",
+              label: pc.greenBright('Node'),
+              value: 'nodejs',
             },
             // {
             //   label: pc.blueBright("React"),
@@ -109,20 +109,20 @@ export class CreateProjectCommand extends BaseCommand {
       // 4. 대상 언어
       language: () =>
         this.prompts.choice<Language>({
-          message: "What is your preferred language?",
+          message: 'What is your preferred language?',
           initialValue: 'typescript-swc',
           options: [
             {
-              label: pc.yellow("JavaScript"),
-              value: "javascript",
+              label: pc.yellow('JavaScript'),
+              value: 'javascript',
             },
             {
-              label: pc.blue("TypeScript"),
-              value: "typescript",
+              label: pc.blue('TypeScript'),
+              value: 'typescript',
             },
             {
-              label: pc.blue("TypeScript + SWC"),
-              value: "typescript-swc",
+              label: pc.blue('TypeScript + SWC'),
+              value: 'typescript-swc',
               hint: 'recommended',
             },
           ],
@@ -131,16 +131,16 @@ export class CreateProjectCommand extends BaseCommand {
       // 5. 옵션 기능
       projectOptions: () =>
         this.prompts.multiChoice<string>({
-          message: "Do you have any options for the project?",
+          message: 'Do you have any options for the project?',
           required: false,
           options: [
             {
-              label: "ESLint",
-              value: "eslint",
+              label: 'ESLint',
+              value: 'eslint',
             },
             {
-              label: "Prettier",
-              value: "prettier",
+              label: 'Prettier',
+              value: 'prettier',
             },
           ],
         }),
@@ -149,24 +149,24 @@ export class CreateProjectCommand extends BaseCommand {
       additionalDependencies: () =>
         this.prompts
           .ask({
-            message: "Is there any additional dependence of the project? (write comma separated)",
-            placeholder: "ex) es-toolkit, ...",
+            message: 'Is there any additional dependence of the project? (write comma separated)',
+            placeholder: 'ex) es-toolkit, ...',
           })
-          .then((value) => (isEmpty(value) ? [] : value.split(",").map((dep) => dep.trim()))),
+          .then((value) => (isEmpty(value) ? [] : value.split(',').map((dep) => dep.trim()))),
 
       // 6.2 추가 개발 의존성 기입
       additionalDevDependencies: () =>
         this.prompts
           .ask({
-            message: "Is there any additional development dependence of the project? (write comma separated)",
-            placeholder: "ex) webpack, ...",
+            message: 'Is there any additional development dependence of the project? (write comma separated)',
+            placeholder: 'ex) webpack, ...',
           })
-          .then((value) => (isEmpty(value) ? [] : value.split(",").map((dep) => dep.trim()))),
+          .then((value) => (isEmpty(value) ? [] : value.split(',').map((dep) => dep.trim()))),
 
       // 7. 의존성 설치 여부
       installDependencies: () =>
         this.prompts.accept({
-          message: "Do you want to install dependencies? (Installed with the latest version)",
+          message: 'Do you want to install dependencies? (Installed with the latest version)',
         }),
     })
   }

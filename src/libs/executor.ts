@@ -1,11 +1,11 @@
-import { execa } from "execa"
-import { BaseError, CommandExecutionFailedError } from "#errors/index.js"
-import type { CommandParams, ExecutionResult } from "#interfaces/libs.interface.js"
+import { execa } from 'execa'
+import { BaseError, CommandExecutionFailedError } from '#errors/index.js'
+import type { CommandParams, ExecutionResult } from '#interfaces/libs.interface.js'
 
 export class Executor {
   private static instance: Executor
 
-  private constructor() { }
+  private constructor() {}
 
   public static getInstance(): Executor {
     if (!Executor.instance) {
@@ -26,12 +26,12 @@ export class Executor {
       return {
         success: true,
         stdout: result.stdout,
-        stderr: result.stderr
+        stderr: result.stderr,
       }
     } catch (error) {
       return {
         success: false,
-        error: new CommandExecutionFailedError(error instanceof BaseError ? error.message : "Unknown error")
+        error: new CommandExecutionFailedError(error instanceof BaseError ? error.message : 'Unknown error'),
       }
     }
   }

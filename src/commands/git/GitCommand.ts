@@ -1,9 +1,8 @@
-import { BaseCommand } from "#commands/BaseCommand.js";
-import { GitCommandFactory } from "#factories/command/GitCommandFactory.js";
-import type { GitCommandType } from "#interfaces/commands.interface.js";
+import { BaseCommand } from '#commands/BaseCommand.js'
+import { GitCommandFactory } from '#factories/command/GitCommandFactory.js'
+import type { GitCommandType } from '#interfaces/commands.interface.js'
 
 export class GitCommand extends BaseCommand {
-
   constructor() {
     super()
   }
@@ -17,12 +16,12 @@ export class GitCommand extends BaseCommand {
     this.prompts.start()
 
     const command = await this.prompts.choice<GitCommandType>({
-      message: "Select the action you want:",
+      message: 'Select the action you want:',
       options: [
-        { label: "Init", value: "init" },
-        { label: "Commit & Push", value: "push" },
-        { label: "Pull", value: "pull" },
-        { label: "Diff", value: "diff" },
+        { label: 'Init', value: 'init' },
+        { label: 'Commit & Push', value: 'push' },
+        { label: 'Pull', value: 'pull' },
+        { label: 'Diff', value: 'diff' },
         // Merge
         // Managing Branches
       ],
@@ -34,8 +33,8 @@ export class GitCommand extends BaseCommand {
 
   /**
    * undo
- * @desc Git 명령어 실행 취소
- */
+   * @desc Git 명령어 실행 취소
+   */
   public async undo() {
     return false
   }

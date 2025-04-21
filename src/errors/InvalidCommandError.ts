@@ -1,7 +1,7 @@
-import { BaseError } from "#errors/BaseError.js"
+import { BaseError } from '#errors/BaseError.js'
 
 export class InvalidCommandError extends BaseError {
   constructor() {
-    super(10001, "Invalid command")
+    super(10001, 'Invalid command')
   }
 }

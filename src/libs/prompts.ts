@@ -16,9 +16,9 @@ import {
   type ConfirmOptions,
   type MultiSelectOptions,
   type PromptGroup,
-} from "@clack/prompts"
-import pc from "picocolors"
-import { OperationCancelledError } from "#errors/index.js"
+} from '@clack/prompts'
+import pc from 'picocolors'
+import { OperationCancelledError } from '#errors/index.js'
 
 export class Prompts {
   /**
@@ -49,7 +49,7 @@ export class Prompts {
    * @desc 프로그램 시작 시 표시되는 인트로 메시지
    */
   public static start() {
-    intro(`${pc.bgCyanBright(" Fury CLI ")}`)
+    intro(`${pc.bgCyanBright(' Fury CLI ')}`)
   }
 
   /**

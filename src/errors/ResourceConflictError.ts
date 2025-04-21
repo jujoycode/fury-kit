@@ -1,4 +1,4 @@
-import { BaseError } from "#errors/BaseError.js"
+import { BaseError } from '#errors/BaseError.js'
 
 export class ResourceConflictError extends BaseError {
   constructor(message: string) {

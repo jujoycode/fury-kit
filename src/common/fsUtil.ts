@@ -14,8 +14,8 @@ export function getCurrentDirectory() {
  * @desc 디렉토리 생성
  */
 export async function createDirectory(dir: string) {
-  if (!(checkExists(dir))) {
-    await mkdir(dir, { recursive: true });
+  if (!checkExists(dir)) {
+    await mkdir(dir, { recursive: true })
   }
 }
 
@@ -24,7 +24,7 @@ export async function createDirectory(dir: string) {
  * @desc 파일 생성
  */
 export async function createFile(filePath: string, content: string) {
-  await writeFile(filePath, content, { encoding: 'utf-8' });
+  await writeFile(filePath, content, { encoding: 'utf-8' })
 }
 
 /**
@@ -32,7 +32,7 @@ export async function createFile(filePath: string, content: string) {
  * @desc 경로 결합 (개수 무제한)
  */
 export function combinePath(...paths: string[]): string {
-  return paths.join('/');
+  return paths.join('/')
 }
 
 /**

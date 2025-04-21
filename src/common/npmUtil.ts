@@ -1,11 +1,11 @@
-import axios from "axios"
-import type { PackageInfo } from "#interfaces/util.interface.js"
+import axios from 'axios'
+import type { PackageInfo } from '#interfaces/util.interface.js'
 
 export class NpmUtil {
-  private static readonly BASE_URL = "https://registry.npmjs.org"
+  private static readonly BASE_URL = 'https://registry.npmjs.org'
 
   static async getPackageVersion(packageNames: string | string[]) {
-    if (typeof packageNames === "string") {
+    if (typeof packageNames === 'string') {
       packageNames = [packageNames]
     }
 
@@ -15,7 +15,7 @@ export class NpmUtil {
       const packageName = packageNames[i]
       const response = await axios.get<PackageInfo>(`${this.BASE_URL}/${packageName}`)
 
-      pacakgeVersion[packageName] = response?.data?.["dist-tags"]?.latest
+      pacakgeVersion[packageName] = response?.data?.['dist-tags']?.latest
     }
 
     return pacakgeVersion

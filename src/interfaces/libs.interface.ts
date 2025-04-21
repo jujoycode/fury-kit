@@ -1,4 +1,4 @@
-import type { Options, Result } from "execa"
+import type { Options, Result } from 'execa'
 
 export interface ExecutionResult {
   success: boolean

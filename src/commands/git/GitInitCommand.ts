@@ -1,4 +1,4 @@
-import { BaseCommand } from "#commands/BaseCommand.js";
+import { BaseCommand } from '#commands/BaseCommand.js'
 
 export class GitInitCommand extends BaseCommand {
   constructor() {
@@ -9,8 +9,7 @@ export class GitInitCommand extends BaseCommand {
    * execute
    * @desc Git 명령어 실행
    */
-  public async execute() {
-  }
+  public async execute() {}
 
   /**
    * undo
