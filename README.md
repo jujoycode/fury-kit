@@ -12,13 +12,13 @@
 
 ```bash
 # npm
-npm install -g fury-tool
+npm install -g fury-kit
 
 # yarn
-yarn global add fury-tool
+yarn global add fury-kit
 
 # pnpm
-pnpm install -g fury-tool
+pnpm install -g fury-kit
 ```
 
 ## Usage
@@ -34,39 +34,41 @@ $ fury -g # or fury --git
 $ fury -h
 
 # When you want to view version information
-$ fury -v # or fury --version
+$ fury -V # or fury --version
 ```
 
 ## Update Notification
 
 ```bash
-│                Update available! 9.12.3 → 10.7.1.                │
-│   Changelog: https://github.com/jujoycode/fury-tool/README.md    │
-│                Run "pnpm i -g fury-tool" to update.              │
+│                Update available! 1.0.0 → 1.0.1                  │
+│   Changelog: https://github.com/jujoycode/fury-kit/README.md    │
+│                Run "pnpm i -g fury-kit" to update.              │
 ```
 
 ## Project Structure
 
 ```
-
-├─ .swcrc
+fury-tool
+├─ LICENSE
 ├─ README.md
-├─ dist
-│  └─ src
-│     └─ index.js
 ├─ package.json
-├─ pnpm-lock.yaml
+├─ rollup.config.js
 ├─ src
 │  ├─ commands
-│  │  └─ BaseCommand.ts
+│  │  ├─ BaseCommand.ts
+│  │  ├─ git
+│  │  └─ project
+│  ├─ common
+│  ├─ creators
 │  ├─ errors
-│  │  ├─ BaseError.ts
-│  │  └─ NotFoundError.ts
-│  ├─ factorys
-│  │  └─ CommandFactory.ts
-│  └─ index.ts
+│  ├─ factories
+│  │  ├─ command
+│  │  └─ project
+│  ├─ index.ts
+│  ├─ interfaces
+│  ├─ libs
+│  └─ templates
 └─ tsconfig.json
-
 ```
 
 ## Error Codes
