@@ -1,7 +1,7 @@
 {
   "name": "fury-kit",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.1",
+  "description": "Fury is a tool that helps developers in a variety of tasks.",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -26,12 +26,22 @@
     "build:prod": "pnpm run clean && rollup -c",
     "start": "node dist/index.mjs"
   },
-  "test": "pnpm run build:prod && node dist/index.mjs",
   "engines": {
     "node": ">=18"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "CLI",
+    "bolierplate",
+    "generator",
+    "nodejs",
+    "typescript",
+    "javascript",
+    "tool",
+    "utility",
+    "swc"
+  ],
+  "author": "_jujoycode",
+  "homepage": "https://github.com/jujoycode/fury-kit",
   "license": "GPL-3.0-only",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^28.0.3",
