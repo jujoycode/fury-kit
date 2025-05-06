@@ -1,0 +1,4 @@
+ignoredBuiltDependencies:
+  - javascript-obfuscator
+onlyBuiltDependencies:
+  - '@swc/core'
